@@ -1,7 +1,5 @@
 # College Student Dashboard
 
-![Dashboard Screenshot](C:\Users\admin\OneDrive\Pictures\Screenshots\Screenshot (68).png)
-
 ## Table of Contents
 
 - [Introduction](#introduction)
