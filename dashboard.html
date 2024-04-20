@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="style5.css">
+</head>
+<body>
+
+<!-- Dashboard Sections -->
+<div id="dashboard" style="display: block;">
+<!-- Profile Section -->
+<div id="profileSection" class="dashboard-section">
+    <h2>Profile</h2>
+        <img src="C:\Users\admin\OneDrive\Pictures\Karthika_image.jpg" alt="Profile Picture" id="profilePic">
+        <p>Name: <span id="name"></span></p>
+        <p>Student ID: <span id="studentID"></span></p>
+        <p>Program/Course: <span id="course"></span></p>
+        <p>Contact: <span id="contact"></span></p>
+</div>
+
+
+
+<!-- Academic Information Section -->
+<div id="academicSection" class="dashboard-section">
+    <h2>Academic Information</h2>
+    <!-- Academic information content here -->
+    <p>Current Semester: <span id="semester"></span></p>
+    <p>Course schedule: <span id="Course"></span></p>
+    <p>Grade: <span id="Grade"></span></p>
+    <p>GPA: <span id="GPA"></span></p>
+</div>
+
+
+
+<!-- Financial Section -->
+<div id="financialSection" class="dashboard-section">
+    <h2>Financial</h2>
+    <!-- Financial content here -->
+    <p>Tution Fees: <span id="Fees"></span> </p>
+    <p>Payment Details: <span id="PaymentDetails"></span></p>
+    <p>Outstanding Payment: <span id="OutstandingDetails"></span></p>
+    <p>Scholarships: <span id="Scholarships"></span></p>
+
+</div>
+
+
+
+<!-- Library and Resources Section -->
+<div id="librarySection" class="dashboard-section">
+    <h2>Library and Resources</h2>
+</div>
+
+
+
+    <!-- Events and Announcements Section -->
+<div id="eventsSection" class="dashboard-section">
+    <h2>Events and Announcements</h2>
+</div>
+
+
+
+ <!-- Career Services Section -->
+<div id="careerSection" class="dashboard-section">
+    <h2>Career Services</h2>
+    <p id="jobOpportunitiesList">
+        <!-- List of job/internship opportunities will be dynamically populated -->
+        <!-- Example: <li>Job Title - Company Name</li> -->
+    </p>
+    <br>
+    <p><a href="#">Schedule a Career Counseling Appointment</a></p>
+    <p><a href="#">Job Search Resources</a></p>
+</div>
+
+
+
+<!-- Feedback and Support Section -->
+<div id="feedbackSection" class="dashboard-section">
+    <h2>Feedback and Support</h2>
+    <form id="feedbackForm">
+        <label for="feedback">Feedback:</label><br>
+        <textarea id="feedback" name="feedback" rows="4" cols="50"></textarea><br>
+        <button type="submit">Submit Feedback</button>
+    </form>
+    <p><a href="#">Technical Support</a></p>
+    <p><a href="#">Help Center</a></p>
+</div>
+</div>
+
+
+<script src="script5.js"></script>
+</body>
+</html>

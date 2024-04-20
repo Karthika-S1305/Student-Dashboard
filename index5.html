@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Dashboard</title>
+    <link rel="stylesheet" href="style5.css">
+</head>
+<body>
+    <!-- Login Section -->
+    <div id="loginForm">
+        <h2>Login</h2>
+        <input type="text" id="username" placeholder="Username">
+        <input type="password" id="password" placeholder="Password">
+        <button onclick="login()">Login</button>
+        <button onclick="showRegisterForm()">Register</button> <!-- Updated Register button -->
+    </div>
+
+    <div id="registerForm" style="display: none;">
+        <h2>Register</h2>
+        <input type="text" id="fullName" placeholder="Full Name">
+        <input type="email" id="email" placeholder="Email">
+        <input type="text" id="phoneNumber" placeholder="Phone Number">
+        <input type="text" id="regUsername" placeholder="Username">
+        <input type="password" id="regPassword" placeholder="Password">
+        <button onclick="register()">Submit</button>
+        <button onclick="hideRegisterForm()">Cancel</button>
+    </div>
+
+</div>
+
+
+    <script src="script5.js"></script>
+</body>
+</html>
