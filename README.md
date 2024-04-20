@@ -1,6 +1,6 @@
 # College Student Dashboard
 
-![Dashboard Screenshot](dashboard-screenshot.png)
+![Dashboard Screenshot](C:\Users\admin\OneDrive\Pictures\Screenshots\Screenshot (68).png)
 
 ## Table of Contents
 
