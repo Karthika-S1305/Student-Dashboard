@@ -7,29 +7,39 @@
     <link rel="stylesheet" href="style5.css">
 </head>
 <body>
-    <!-- Login Section -->
     <div id="loginForm">
         <h2>Login</h2>
+        <input type="email" id="useremail" placeholder="Email">
         <input type="text" id="username" placeholder="Username">
         <input type="password" id="password" placeholder="Password">
         <button onclick="login()">Login</button>
-        <button onclick="showRegisterForm()">Register</button> <!-- Updated Register button -->
+        <button onclick="showRegisterForm()">Register</button>
+        <a href="#" onclick="showForgotPassword()">Forgot Password?</a>
     </div>
 
-    <div id="registerForm" style="display: none;">
-        <h2>Register</h2>
-        <input type="text" id="fullName" placeholder="Full Name">
-        <input type="email" id="email" placeholder="Email">
-        <input type="text" id="phoneNumber" placeholder="Phone Number">
-        <input type="text" id="regUsername" placeholder="Username">
-        <input type="password" id="regPassword" placeholder="Password">
-        <button onclick="register()">Submit</button>
-        <button onclick="hideRegisterForm()">Cancel</button>
-    </div>
-
+    <div id="forgotPasswordForm" style="display: none;">
+    <h2>Forgot Password</h2>
+    <input type="email" id="resetEmail" placeholder="Email">
+    <input type="password" id="resetPassword" placeholder="New Password">
+    <input type="password" id="confirmPassword" placeholder="Confirm Password">
+    <button onclick="resetPassword()">Reset</button>
+    <button onclick="hideForgotPassword()">Cancel</button>
+    <p id="resetErrorMsg"></p>
 </div>
 
 
-    <script src="script5.js"></script>
+    <div id="registerForm" style="display: none;">
+        <h2>Register</h2>
+        <input type="email" id="regEmail" placeholder="Email">
+        <input type="text" id="regUsername" placeholder="Username">
+        <input type="password" id="regPassword" placeholder="Password">
+        <button onclick="sendMail()">Submit</button>
+        <button onclick="hideRegisterForm()">Cancel</button>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
+    <!-- Include your script file -->
+    <script type="text/javascript" src="script5.js"></script>
 </body>
 </html>
