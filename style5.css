@@ -1,262 +1,281 @@
-/* Login and Register Forms Container */
-#formsContainer {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 50px;
+let userDetailsArray = []; 
+
+function login() {
+    const userEmail = document.getElementById('useremail').value.trim(); 
+    const username = document.getElementById('username').value.trim();
+    const password = document.getElementById('password').value.trim();
+
+    console.log('Useremail:', userEmail);
+    console.log('Username:', username);
+    console.log('Password:', password);
+
+    let userDetailsArray = JSON.parse(localStorage.getItem('userDetailsArray')) || [];
+
+    const user = userDetailsArray.find(user => user.username === username && user.password === password);
+
+    if (user) {
+        console.log('User found:', user);
+        alert('Login successful.');
+        window.location.assign('dashboard.html');
+    } else {
+        console.log('Invalid username or password.');
+        alert('Invalid username or password.');
+    }
 }
 
 
-#loginForm,
-#registerForm {
-    width: 100%;
-    max-width: 400px;
-    padding: 30px;
-    background-color: #fff;
-    border-radius: 5px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    margin: 0 auto; /* Center the form horizontally */
-    margin-bottom: 20px;
+function showRegisterForm() {
+    document.getElementById('registerForm').style.display = 'block';
+    document.getElementById('loginForm').style.display = 'none';
 }
 
 
-#loginForm h2,
-#registerForm h2 {
-    margin-bottom: 20px;
-    color: #333;
+function showForgotPassword() {
+    document.getElementById("loginForm").style.display = "none";
+    document.getElementById("registerForm").style.display = "none";
+    document.getElementById("forgotPasswordForm").style.display = "block";
 }
 
-#loginForm input[type="text"],
-#loginForm input[type="password"],
-#registerForm input[type="text"],
-#registerForm input[type="email"],
-#registerForm input[type="password"] {
-    display: block;
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 15px;
-    border: 1px solid #ccc;
-    border-radius: 3px;
-    box-sizing: border-box;
+function hideForgotPassword() {
+    document.getElementById("loginForm").style.display = "block";
+    document.getElementById("forgotPasswordForm").style.display = "none";
 }
 
-#loginForm button,
-#registerForm button {
-    background-color: #4CAF50;
-    color: lightyellow;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 3px;
-    cursor: pointer;
+function resetPassword() {
+    const email = document.getElementById('resetEmail').value.trim();
+    const newPassword = document.getElementById('resetPassword').value.trim();
+    const confirmPassword = document.getElementById('confirmPassword').value.trim();
+
+    if (newPassword !== confirmPassword) {
+        document.getElementById('resetErrorMsg').innerText = "Passwords do not match.";
+        return;
+    }
+
+    let userDetailsArray = JSON.parse(localStorage.getItem('userDetailsArray')) || [];
+
+    const userIndex = userDetailsArray.findIndex(user => user.userEmail === email);
+
+    if (userIndex !== -1) {
+    userDetailsArray[userIndex].password = newPassword;
+    localStorage.setItem('userDetailsArray', JSON.stringify(userDetailsArray));
+
+    const templateParams = {
+        email: email,
+        message: "Password reset successful!" 
+    };
+
+    emailjs.send("service_sw819np", "template_trhdpjj", templateParams)
+        .then(function(response) {
+            alert("Password reset successful, Check you mail"); 
+            hideForgotPassword(); 
+            console.log("SUCCESS!", response.status, response.text); // Log success message
+        })
+        .catch(function(error) {
+            // Handle error
+            alert("Error sending email!"); 
+            console.log("FAILED...", error); 
+        });
+} else {
+    // Username or email not found
+    document.getElementById('resetErrorMsg').innerText = "Username or email not found.";
 }
 
-#loginForm button:hover,
-#registerForm button:hover {
-    background-color: #45a049;
-}
-
-
-/* Global Styles */
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-}
-
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
-}
-
-/* Form Styles */
-.form-group {
-    margin-bottom: 15px;
-}
-
-.form-group label {
-    display: block;
-    margin-bottom: 5px;
-}
-
-input[type="text"],
-input[type="password"],
-input[type="email"],
-textarea {
-    width: 100%;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-    margin-bottom: 10px;
-}
-
-button {
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-}
-
-button:hover {
-    background-color: #0056b3;
-}
-
-/* Dashboard Styles */
-.dashboard-section {
-    background-color: #f4f4f4;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    margin-bottom: 20px;
-    padding: 15px;
-    display: block;
-}
-
-.dashboard-section h2 {
-    margin-bottom: 10px;
-    color: #333;
-}
-
-.dashboard-section p {
-    margin-bottom: 5px;
-}
-
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f5f5f5; /* Light gray background */
-}
-
-.dashboard-section {
-    background-color: whitesmoke; /* White background for sections */
-    margin: 10px;
-    padding: 20px;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Soft shadow effect */
-}
-
-h2 {
-    color: #333; /* Dark gray text color for headings */
-}
-
-p {
-    margin: 5px 0; /* Add some margin to paragraphs */
 }
 
 
 
-#profilePic {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    object-fit: cover;
-    margin-bottom: 10px;
-    margin: 2px;
-
+function hideRegisterForm() {
+    document.getElementById('registerForm').style.display = 'none';
+    document.getElementById('loginForm').style.display = 'block';
 }
 
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f0f0f0;
-    margin: 0;
-    padding: 0;
-    background-color: lightgrey;
+function isUsernameRegistered(username) {
+    return !!registeredUsers[username]; // Check if username exists in registeredUsers
 }
 
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
-    display: grid;
-    grid-template-rows: repeat(3, min-content);
-    grid-row-gap: 20px;
+emailjs.init("UQjJXQPiAlAGD52-s");
 
-.dashboard-section {
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    margin-bottom: 20px;
-}
+function sendMail() {
+    const email = document.getElementById('regEmail').value.trim();
+    const regUsername = document.getElementById('regUsername').value.trim();
+    const regPassword = document.getElementById('regPassword').value.trim(); 
 
-#feedback {
-    width: 50%;
-}
+    if (email === '' || regUsername === '' || regPassword === '') {
+        alert('Please fill in all fields.');
+        return;
+    }
 
-h2 {
-    color: #333;
-    margin-bottom: 10px;
-}
+    let userDetailsArray = JSON.parse(localStorage.getItem('userDetailsArray')) || [];
 
-ul {
-    list-style-type: none;
-    padding: 0;
-}
+    if (userDetailsArray.some(user => user.username === regUsername)) {
+        alert('Username is already registered. Please choose another username.');
+        return;
+    }
 
-li {
-    margin-bottom: 5px;
-}
+    userDetailsArray.push({ userEmail: email, username: regUsername, password: regPassword });
+    localStorage.setItem('userDetailsArray', JSON.stringify(userDetailsArray));
 
-a {
-    color: #007bff;
-    text-decoration: none;
-}
+    const templateParams = {
+        email: email,
+        message: "Registered successfully!"
+    };
 
-a:hover {
-    text-decoration: underline;
-}
-
-.button {
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-top: 10px;
-}
-
-.button:hover {
-    background-color: #0056b3;
-}
-
-.profile-picture {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    object-fit: cover;
-}
-
-.form-group {
-    margin-bottom: 10px;
-}
-
-.form-group label {
-    display: block;
-    margin-bottom: 5px;
+    emailjs.send("service_sw819np", "template_lz4s5es", templateParams)
+        .then(function(response) {
+            alert("Email sent successfully!");
+            hideRegisterForm();
+            console.log("SUCCESS!", response.status, response.text);
+        }, function(error) {
+            alert("Error sending email!");
+            console.log("FAILED...", error);
+        });
 }
 
 
-.form-group textarea {
-    width: 50%;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+const userData = {
+        name: "Karthika",
+        studentID: "123456",
+        program: "Electronics and communication",
+        contact: "karthika@example.com"
+    };
+
+function updateProfileSection() {
+    const nameElement = document.getElementById('name');
+    const studentIDElement = document.getElementById('studentID');
+    const programElement = document.getElementById('program');
+    const contactElement = document.getElementById('contact');
+
+    nameElement.textContent = userData.name;
+    studentIDElement.textContent = userData.studentID;
+    programElement.textContent = userData.program;
+    contactElement.textContent = userData.contact;
 }
 
-.form-group button {
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
+updateProfileSection();
+
+const academicData = {
+    currentSemester: "8",
+    courseSchedule: "Monday, Wednesday, Friday 9:00 AM - 11:00 AM",
+    grade: "A",
+    GPA: "8.2"
+};
+
+// Function to update the academic information section with data
+function updateAcademicSection() {
+    const semesterElement = document.getElementById('semester');
+    const courseScheduleElement = document.getElementById('course'); // Assuming 'Course' is the correct ID
+    const gradeElement = document.getElementById('Grade');
+    const gpaElement = document.getElementById('GPA');
+
+    semesterElement.textContent = academicData.currentSemester;
+    courseScheduleElement.textContent = academicData.courseSchedule;
+    gradeElement.textContent = academicData.grade;
+    gpaElement.textContent = academicData.GPA;
 }
 
+updateAcademicSection();
 
-.form-group button:hover {
-    background-color: #0056b3;
+
+
+const financialData = {
+    tuitionFees: "INR 10,000",
+    paymentDetails: "Payment due by May 15, 2024",
+    outstandingPayment: "INR 2,500",
+    scholarships: "Merit-based Scholarship"
+};
+
+function updateFinancialSection() {
+    const feesElement = document.getElementById('Fees');
+    const paymentDetailsElement = document.getElementById('PaymentDetails');
+    const outstandingDetailsElement = document.getElementById('OutstandingDetails');
+    const scholarshipsElement = document.getElementById('Scholarships');
+
+    feesElement.textContent = financialData.tuitionFees;
+    paymentDetailsElement.textContent = financialData.paymentDetails;
+    outstandingDetailsElement.textContent = financialData.outstandingPayment;
+    scholarshipsElement.textContent = financialData.scholarships;
 }
+
+updateFinancialSection();
+
+
+
+const libraryData = [
+    { title: 'Book Borrowing Status', description: 'You have borrowed 3 books.' },
+    { title: 'Online Resources', description: 'Access e-books, journals, and databases.' },
+    { title: 'Library Notifications', description: 'You have 1 overdue book.' }
+];
+
+// Function to populate the Library and Resources section with data
+function populateLibrarySection() {
+    const librarySection = document.getElementById('librarySection');
+
+    libraryData.forEach(item => {
+        const titleElement = document.createElement('h4');
+        titleElement.textContent = item.title;
+
+        const descriptionElement = document.createElement('p');
+        descriptionElement.textContent = item.description;
+
+        librarySection.appendChild(titleElement);
+        librarySection.appendChild(descriptionElement);
+    });
+}
+
+populateLibrarySection();
+
+
+
+const eventsData = [
+    { name: 'Workshop on Web Development', date: '2024-05-20' },
+    { name: 'Seminar on Data Science', date: '2024-06-05' },
+    { name: 'Academic Deadline: Course Registration', date: '2024-07-01' }
+];
+
+function populateEventsSection() {
+    const eventsSection = document.getElementById('eventsSection');
+
+    eventsData.forEach(event => {
+        const eventElement = document.createElement('p');
+        eventElement.textContent = `${event.name} - Date: ${event.date}`;
+
+        eventsSection.appendChild(eventElement);
+    });
+}
+
+populateEventsSection();
+
+
+
+const jobOpportunities = [
+    { title: 'Software Engineer Intern', company: 'TechCorp' },
+    { title: 'Marketing Coordinator', company: 'Digital Solutions Inc.' },
+    { title: 'Data Analyst', company: 'Analytics Co.' }
+];
+
+function populateJobOpportunitiesList() {
+    const jobOpportunitiesList = document.getElementById('jobOpportunitiesList');
+
+    jobOpportunities.forEach(job => {
+        const listItem = document.createElement('p');
+
+        listItem.innerHTML = `${job.title} - ${job.company}`;
+
+        jobOpportunitiesList.appendChild(listItem);
+    });
+}
+
+populateJobOpportunitiesList();
+
+document.getElementById('feedbackForm').addEventListener('submit', function(event) {
+    event.preventDefault(); // Prevent default form submission
+
+    const feedbackMessage = document.getElementById('feedback').value.trim();
+
+    if (feedbackMessage === '') {
+        alert('Please enter your feedback.');
+        return;
+    }
+
+    alert('Feedback submitted successfully:\n' + feedbackMessage);
+});
